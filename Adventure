@@ -1,0 +1,7 @@
+#!/usr/bin/env python
+print "Adventure!"
+filler = 0
+playAgain = 1
+while playAgain == 1:
+    print = "This is filler until I get to work on it. Deal with it."
+    playAgain = 0
