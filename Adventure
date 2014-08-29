@@ -1,7 +1,25 @@
 #!/usr/bin/env python
-print "Adventure!"
-filler = 0
+print "Welcome!"
+Filler = 0
+Area = 0
+Health = 10
+Attack = 3
+Defense = 5
+Coins = 15
+ShopMenu
 playAgain = 1
 while playAgain == 1:
-    print = "This is filler until I get to work on it. Deal with it."
-    playAgain = 0
+    while Area == 0:
+        print "What would you like to do?"
+        Area = int(raw_input("Type 1 to go shopping, or...filler until update  ")
+    while Area == 1:
+        print "Welcome to the shop! What would you like? Upgrades are 5 coins."
+        ShopMenu = int(raw_input("1 is Attack, 2 is Defense, 3 is Health. Type 4 to return to town center.  ")
+        if ShopMenu == 1:
+            Attack = Attack + 2
+            ShopMenu = 0
+        if ShopMenu == 2:
+            Defense = Defense +2
+            ShopMenu = 0
+        if ShopMenu == 3:
+#Finish adding shop options and begin other areas.
