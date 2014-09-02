@@ -28,3 +28,8 @@ while playAgain == 1:
         if ShopMenu == 4:
             Area = 0
             ShopMenu = 0
+#Serious testing required here, had an infinite loop problem with a different program formatted similarly to this.
+    while Area == 2:
+        print "Go away."
+        Area = 0
+#Just filler
