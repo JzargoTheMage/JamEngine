@@ -6,12 +6,12 @@ Health = 10
 Attack = 3
 Defense = 5
 Coins = 15
-ShopMenu
+ShopMenu = 0
 playAgain = 1
 while playAgain == 1:
     while Area == 0:
         print "What would you like to do?"
-        Area = int(raw_input("Type 1 to go shopping, or...filler until update  ")
+        Area = int(raw_input("Type 1 to go shopping, or 2 to proceed on your journey.  ")
     while Area == 1:
         if ShopMenu == 0:
             print "Welcome to the shop! What would you like? Upgrades are 5 coins."
@@ -29,7 +29,7 @@ while playAgain == 1:
             Area = 0
             ShopMenu = 0
 #Serious testing required here, had an infinite loop problem with a different program formatted similarly to this.
+#Any better way to program this?
     while Area == 2:
         print "Go away."
         Area = 0
-#Just filler
