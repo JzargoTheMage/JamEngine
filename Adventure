@@ -28,8 +28,7 @@ while playAgain == 1:
         if ShopMenu == 4:
             Area = 0
             ShopMenu = 0
-#Serious testing required here, had an infinite loop problem with a different program formatted similarly to this.
-#Any better way to program this?
     while Area == 2:
         print "Go away."
         Area = 0
+#If this works then clone repository and flesh it out. Test first. Download SharpDevelop.
