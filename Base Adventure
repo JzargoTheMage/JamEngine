@@ -31,4 +31,5 @@ while playAgain == 1:
     while Area == 2:
         print "Go away."
         Area = 0
-#If this works then clone repository and flesh it out. Test first. Download SharpDevelop.
+#If this works then clone repository and flesh it out. Test first.
+#Make separate file for battles and add in later
