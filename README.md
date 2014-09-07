@@ -1,4 +1,6 @@
-python-practice-projects
+PythonPracticeProjects
 ========================
 
-Where I will dump my practice codes I make out of boredom. Feel free to use or revise if you really think it matters.
+These are my codes. I wrote them, I edit them, and I use them. If you wish to use them, you can if you give credit.
+
+I will be using these to create a game eventually.
