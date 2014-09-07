@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 box = 0
 playAgain = 1
-print "Boxes!"
+print "Treasure!"
 while playAgain == 1:
     box = int(raw_input("Open one? Type a number."))
     if box != 0:
