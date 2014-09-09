@@ -1,19 +1,23 @@
 #!/usr/bin/env python
 print "Welcome!"
 Area = 0
-Health = 10
-Attack = 3
-Defense = 5
+Health = 0
+Attack = 0
+Defense = 0
+Speed = 0
 enemyHealth = 0
 enemyAttack = 0
 enemyDefense = 0
+enemySpeed = 0
 damage = 0
 battleAction = 0
 OriginalHealth = 0
 OriginalAttack = 0
 OriginalDefense = 0
+OriginalSpeed = 0
 TempAttack = 0
 TempDefense = 0
+TempSpeed = 0
 enemyType = 0
 playerType = 0
 battleStatus = "None"
@@ -22,6 +26,8 @@ poison = False
 enemyPoison = False
 Coins = 15
 ShopMenu = 0
+Adventure = 0
+AdventureProgress = 0
 playAgain = 1
 
 #Defined actions are below
@@ -36,11 +42,18 @@ def Battle():
     while battleAction == 0:
         battleAction = int(raw_input("Enter 1 to attack, 2 to defend, or 3 to attack with poison.  "))
     while battleAction == 1:
-        Attacking()
-        if battleStatus == "None":
-            EnemyAttacking()
-        PoisonCheck()
-        battleAction = 0
+        if Speed > enemySpeed:
+            Attacking()
+            if battleStatus == "None":
+                EnemyAttacking()
+            PoisonCheck()
+            battleAction = 0
+        if enemySpeed > Speed:
+            if battleStatus == "None":
+                EnemyAttacking()
+            Attacking()
+            PoisonCheck()
+            battleAction = 0
     while battleAction == 2:
         Defending()
         if battleStatus == "None":
@@ -49,11 +62,18 @@ def Battle():
         PoisonCheck()
         battleAction = 0
     while battleAction == 3:
-        PoisonAttacking()
-        if battleStatus == "None":
-            EnemyAttacking()
-        PoisonCheck()
-        battleAction = 0
+        if Speed > enemySpeed:
+            PoisonAttacking()
+            if battleStatus == "None":
+                EnemyAttacking()
+            PoisonCheck()
+            battleAction = 0
+        if enemySpeed > Speed:
+            if battleStatus == "None":
+                EnemyAttacking()
+            PoisonAttacking()
+            PoisonCheck()
+            battleAction = 0
 
 #Function to check for victory
 
@@ -79,16 +99,16 @@ def PoisonAttacking():
     global Attack
     global OriginalAttack
     global enemyPoison
-    OriginalAttack = Attack
+    TempAttack = Attack
     Attack /= 2
     damage = Attack - enemyDefense
     enemyHealth -= damage
     enemyPoison = True
     print "You successfully poisoned the", enemyName, "!"
     print "The", enemyName, "takes", damage, "points of damage!"
-    Attack = OriginalAttack
+    Attack = TempAttack
     damage = 0
-    OriginalAttack = 0
+    TempAttack = 0
     CheckVictory()
 
 def EnemyPoisonAttacking():
@@ -97,15 +117,16 @@ def EnemyPoisonAttacking():
     global enemyAttack
     global OriginalAttack
     global poison
-    OriginalAttack = enemyAttack
+    TempAttack = enemyAttack
     enemyAttack /= 2
     damage = enemyAttack - Defense
     Health -= damage
     poison = True
     print "The", enemyName, "successfully poisoned you!"
     print "You take", damage, "points of damage!"
-    enemyAttack = OriginalAttack
+    enemyAttack = TempAttack
     damage = 0
+    TempAttack = 0
     CheckDefeat()
 
 #Function for poison damage
@@ -153,12 +174,13 @@ def Defending():
     global Defense
     global Health
     global damage
-    OriginalDefense = Defense
+    TempDefense = Defense
     Defense = Defense * 2
     print "You are guarding!"
 
 def ReturnDefense():
-    Defense = OriginalDefense
+    Defense = TempDefense
+    TempDefense = 0
 
 #This ensures that the user does not gain Health from being attacked
     
@@ -169,6 +191,13 @@ def NegativeDamage():
 
 #This is the testing user class. As named, it is over powered.
 #Make other classes based on this template
+#Add speed to them
+
+def Warrior():
+    
+def Knight():
+    
+def Thief():
 
 def OP():
     global Health
@@ -242,6 +271,26 @@ def Defeat():
 #Integrate Class choice and make temp and original variables work.
 
 while playAgain == 1:
+    while playerType == 0:
+#Need to define the other classes now. Also, add speed to the game. Speed is important.
+        print "What class do you want? Type 1 for knight, 2 for warrior, or 3 for thief."
+        playerType = int(raw_input("Well? What are you?  "))
+        while playerType == 1:
+            print "You chose the Knight class!"
+            Knight()
+            playerType = 4
+        while playerType == 2:
+            print "You chose the Warrior class!"
+            Warrior()
+            playerType = 4
+        while playerType == 3:
+            print "You chose the Thief class!"
+            Thief()
+            playerType = 4
+        while playerType == 42:
+            print "Cheater."
+            OP()
+            playerType = 4
     while Area == 0:
         print "What would you like to do?"
         Area = int(raw_input("Type 1 to go shopping, or 2 to proceed on your journey.  ")
