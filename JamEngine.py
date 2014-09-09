@@ -211,9 +211,7 @@ def NegativeDamage():
     if damage < 0:
         damage = 0
 
-#This is the testing user class. As named, it is over powered.
-#Make other classes based on this template
-#Add speed to them
+#These are the different player classes to load upon startup. After initial load they are not used.
 
 def Warrior():
     global Health
@@ -240,8 +238,8 @@ def Thief():
     global Attack
     global Defense
     global Speed
-    Health = 10
-    Attack = 10
+    Health = 5
+    Attack = 15
     Defense = 5
     Speed = 15
     
@@ -380,35 +378,35 @@ while playAgain == 1:
             ShopMenu = int(raw_input("1 is Health, 2 is Attack, 3 is Defense, and 4 is Speed. Type 5 to return to town center.  ")
         if ShopMenu == 1:
             Coins -= 5
-            Health += 2
+            Health += 5
             if Coins < 0:
                 print "You don't have enough money!"
                 Coins += 5
-                Health -= 2
+                Health -= 5
             ShopMenu = 0
         if ShopMenu == 2:
-            Attack += 2
+            Attack += 5
             Coins -= 5
             if Coins < 0:
                 print "You don't have enough money!"
                 Coins += 5
-                Attack -= 2
+                Attack -= 5
             ShopMenu = 0
         if ShopMenu == 3:
-            Defense += 2
+            Defense += 5
             Coins -= 5
             if Coins < 0:
                 print "You don't have enough money!"
                 Coins += 5
-                Defense -= 2
+                Defense -= 5
             ShopMenu = 0
         if ShopMenu == 4:
-            Speed += 2
+            Speed += 5
             Coins -= 5
             if Coins < 0:
                 print "You don't have enough money!"
                 Coins += 5
-                Speed -= 2
+                Speed -= 5
             ShopMenu = 0
         if ShopMenu == 5:
             Area = 0
