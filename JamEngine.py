@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-print "Welcome!"
+filler = 0
 Area = 0
 Health = 0
 Attack = 0
@@ -27,7 +27,6 @@ enemyPoison = False
 Coins = 15
 ShopMenu = 0
 Adventure = 0
-AdventureProgress = 0
 playAgain = 1
 
 #Defined actions are below
@@ -36,6 +35,7 @@ playAgain = 1
 
 def Battle():
     global battleAction
+    SaveStats()
     print "Enemy Name: ", enemyName
     print "Enemy Health: ", enemyHealth
     print "Your Health: ", Health
@@ -74,6 +74,28 @@ def Battle():
             PoisonAttacking()
             PoisonCheck()
             battleAction = 0
+
+#Save prebattle stats and restore them later.
+
+def SaveStats():
+    global OriginalHealth
+    global OriginalAttack
+    global OriginalDefense
+    global OriginalSpeed
+    OriginalHealth = Health
+    OriginalAttack = Attack
+    OriginalDefense = Defense
+    OriginalSpeed = Speed
+    
+def ReturnStats():
+    global Health
+    global Attack
+    global Defense
+    global Speed
+    Health = OriginalHealth
+    Attack = OriginalAttack
+    Defense = OriginalDefense
+    Speed = OriginalSpeed
 
 #Function to check for victory
 
@@ -194,18 +216,54 @@ def NegativeDamage():
 #Add speed to them
 
 def Warrior():
+    global Health
+    global Attack
+    global Defense
+    global Speed
+    Health = 10
+    Attack = 10
+    Defense = 10
+    Speed = 10
     
 def Knight():
+    global Health
+    global Attack
+    global Defense
+    global Speed
+    Health = 10
+    Attack = 10
+    Defense = 15
+    Speed = 5
     
 def Thief():
+    global Health
+    global Attack
+    global Defense
+    global Speed
+    Health = 10
+    Attack = 10
+    Defense = 5
+    Speed = 15
+    
+def Berserker():
+    global Health
+    global Attack
+    global Defense
+    global Speed
+    Health = 15
+    Attack = 15
+    Defense = 5
+    Speed = 5
 
 def OP():
     global Health
     global Attack
     global Defense
-    Health = 20
-    Attack = 20
-    Defense = 20
+    global Speed
+    Health = 50
+    Attack = 50
+    Defense = 50
+    Speed = 50
 
 #This is the generic nameless enemy template
 #Base other enemies off of this template
@@ -215,20 +273,24 @@ def EasyFiller():
     global enemyHealth
     global enemyAttack
     global enemyDefense
+    global enemySpeed
     enemyName = "EasyFiller"
     enemyHealth = 5
     enemyAttack = 5
     enemyDefense = 5
+    enemySpeed = 5
 
 def MediumFiller():
     global enemyName
     global enemyHealth
     global enemyAttack
     global enemyDefense
+    global enemySpeed
     enemyName = "MediumFiller"
     enemyHealth = 10
     enemyAttack = 10
     enemyDefense = 10
+    enemySpeed = 10
 
 #This states the actions to follow for a successful battle (conditions in battle def.)
     
@@ -239,7 +301,14 @@ def Victory():
     global poison
     global enemyPoison
     global playAgain
+    global Adventure
+    global Area
+    global Coins
+    ReturnStats()
     print "You were victorious against", enemyName, "!"
+    Adventure += 1
+    Coins += 10
+    Area = 0
     battle = False
     playerType = 0
     enemyType = 0
@@ -256,7 +325,10 @@ def Defeat():
     global poison
     global enemyPoison
     global playAgain
+    global Area
+    ReturnStats()
     print "You were defeated by", enemyName, "!"
+    Area = 0
     battle = False
     playerType = 0
     enemyType = 0
@@ -271,46 +343,78 @@ def Defeat():
 #Integrate Class choice and make temp and original variables work.
 
 while playAgain == 1:
-    while playerType == 0:
-#Need to define the other classes now. Also, add speed to the game. Speed is important.
-        print "What class do you want? Type 1 for knight, 2 for warrior, or 3 for thief."
+    print "Welcome!"
+    while filler == 0:
+        print "What class do you want to play?"
+        print "Type 1 for Knight."
+        print "Type 2 for Warrior."
+        print "Type 3 for Thief."
+        print "Type 4 for Berserker."
         playerType = int(raw_input("Well? What are you?  "))
         while playerType == 1:
             print "You chose the Knight class!"
             Knight()
-            playerType = 4
+            filler = 1
         while playerType == 2:
             print "You chose the Warrior class!"
             Warrior()
-            playerType = 4
+            filler = 1
         while playerType == 3:
             print "You chose the Thief class!"
             Thief()
-            playerType = 4
+            filler = 1
+        while playerType == 4:
+            print "You chose the Berserker class!"
+            Berserker()
+            filler = 1
         while playerType == 42:
             print "Cheater."
             OP()
-            playerType = 4
+            filler = 1
     while Area == 0:
         print "What would you like to do?"
         Area = int(raw_input("Type 1 to go shopping, or 2 to proceed on your journey.  ")
     while Area == 1:
-        if ShopMenu == 0:
+        while ShopMenu == 0:
             print "Welcome to the shop! What would you like? Upgrades are 5 coins."
-            ShopMenu = int(raw_input("1 is Attack, 2 is Defense, 3 is Health. Type 4 to return to town center.  ")
+            ShopMenu = int(raw_input("1 is Health, 2 is Attack, 3 is Defense, and 4 is Speed. Type 5 to return to town center.  ")
         if ShopMenu == 1:
-            Attack = Attack + 2
+            Coins -= 5
+            Health += 2
+            if Coins < 0:
+                print "You don't have enough money!"
+                Coins += 5
+                Health -= 2
             ShopMenu = 0
         if ShopMenu == 2:
-            Defense = Defense +2
+            Attack += 2
+            Coins -= 5
+            if Coins < 0:
+                print "You don't have enough money!"
+                Coins += 5
+                Attack -= 2
             ShopMenu = 0
         if ShopMenu == 3:
-            Health = Health +5
+            Defense += 2
+            Coins -= 5
+            if Coins < 0:
+                print "You don't have enough money!"
+                Coins += 5
+                Defense -= 2
             ShopMenu = 0
         if ShopMenu == 4:
+            Speed += 2
+            Coins -= 5
+            if Coins < 0:
+                print "You don't have enough money!"
+                Coins += 5
+                Speed -= 2
+            ShopMenu = 0
+        if ShopMenu == 5:
             Area = 0
             ShopMenu = 0
     while Area == 2:
-        print "Go away."
-        Area = 0
+        while Adventure == 0:
+            print "Go away. There are no enemies for you to fight right now."
+            Area = 0
 #Need to add the battle and treasure options into this
