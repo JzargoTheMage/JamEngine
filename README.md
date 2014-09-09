@@ -1,4 +1,4 @@
-PythonPracticeProjects
+JamEngine Game Files
 ========================
 
-These are my codes. I am using these to create a game. Only use if you ask for permission and give credit afterwords.
+These are my personal codes, and are not for public use. Only use if you ask for permission AND give credit afterwards.
