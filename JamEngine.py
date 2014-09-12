@@ -25,6 +25,7 @@ enemyName = "None"
 poison = False
 enemyPoison = False
 Coins = 15
+Treasure = 0
 ShopMenu = 0
 Adventure = 0
 playAgain = 1
@@ -272,11 +273,13 @@ def EasyFiller():
     global enemyAttack
     global enemyDefense
     global enemySpeed
+    global Treasure
     enemyName = "EasyFiller"
     enemyHealth = 5
     enemyAttack = 5
     enemyDefense = 5
     enemySpeed = 5
+    Treasure = 10
 
 def MediumFiller():
     global enemyName
@@ -284,11 +287,13 @@ def MediumFiller():
     global enemyAttack
     global enemyDefense
     global enemySpeed
+    global Treasure
     enemyName = "MediumFiller"
     enemyHealth = 10
     enemyAttack = 10
     enemyDefense = 10
     enemySpeed = 10
+    Treasure = 15
 
 #This states the actions to follow for a successful battle (conditions in battle def.)
     
@@ -302,10 +307,13 @@ def Victory():
     global Adventure
     global Area
     global Coins
+    global Treasure
     ReturnStats()
     print "You were victorious against", enemyName, "!"
+    print "You were awarded", Treasure, "coins!"
     Adventure += 1
-    Coins += 10
+    Coins += Treasure
+    Treasure = 0
     Area = 0
     battle = False
     playerType = 0
@@ -323,10 +331,12 @@ def Defeat():
     global poison
     global enemyPoison
     global playAgain
+    global Treasure
     global Area
     ReturnStats()
     print "You were defeated by", enemyName, "!"
     Area = 0
+    Treasure = 0
     battle = False
     playerType = 0
     enemyType = 0
@@ -413,6 +423,10 @@ while playAgain == 1:
             ShopMenu = 0
     while Area == 2:
         while Adventure == 0:
-            print "Go away. There are no enemies for you to fight right now."
-            Area = 0
-#Need to add the battle and treasure options into this
+            enemyType = 1
+            battle = True
+            Battle()
+        while Adventure == 1:
+            enemyType = 2
+            battle = True
+            Battle()
