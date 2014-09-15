@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 filler = 0
+playerName = ""
 Area = 0
 Health = 0
 Attack = 0
@@ -127,7 +128,7 @@ def PoisonAttacking():
     damage = Attack - enemyDefense
     enemyHealth -= damage
     enemyPoison = True
-    print "You successfully poisoned the", enemyName, "!"
+    print playerName, "successfully poisoned the", enemyName, "!"
     print "The", enemyName, "takes", damage, "points of damage!"
     Attack = TempAttack
     damage = 0
@@ -146,7 +147,7 @@ def EnemyPoisonAttacking():
     Health -= damage
     poison = True
     print "The", enemyName, "successfully poisoned you!"
-    print "You take", damage, "points of damage!"
+    print playerName, "takes", damage, "points of damage!"
     enemyAttack = TempAttack
     damage = 0
     TempAttack = 0
@@ -160,7 +161,7 @@ def PoisonCheck():
     global poison
     if poison == True:
         Health = Health - 2
-        print "You are damaged by poison!"
+        print playerName, "is damaged by poison!"
         CheckDefeat()
     if enemyPoison == True:
         enemyHealth = enemyHealth - 2
@@ -175,7 +176,7 @@ def Attacking():
     damage = Attack - enemyDefense
     NegativeDamage()
     enemyHealth = enemyHealth - damage
-    print "You attack the", enemyName, "!"
+    print playerName, "attacks the", enemyName, "!"
     print enemyName, "takes ", damage, " points of damage!"
     CheckVictory()
     damage = 0
@@ -187,7 +188,7 @@ def EnemyAttacking():
     NegativeDamage()
     Health = Health - damage
     print "The", enemyName, "attacks!"
-    print "You took ", damage, " points of damage!"
+    print playerName, "took ", damage, " points of damage!"
     CheckDefeat()
     damage = 0
 
@@ -199,7 +200,7 @@ def Defending():
     global damage
     TempDefense = Defense
     Defense = Defense * 2
-    print "You are guarding!"
+    print playerName, "is guarding!"
 
 def ReturnDefense():
     Defense = TempDefense
@@ -303,14 +304,13 @@ def Victory():
     global enemyType
     global poison
     global enemyPoison
-    global playAgain
     global Adventure
     global Area
     global Coins
     global Treasure
     ReturnStats()
-    print "You were victorious against", enemyName, "!"
-    print "You were awarded", Treasure, "coins!"
+    print playerName, "was victorious against", enemyName, "!"
+    print playername, "was awarded", Treasure, "coins!"
     Adventure += 1
     Coins += Treasure
     Treasure = 0
@@ -320,7 +320,6 @@ def Victory():
     enemyType = 0
     poison = False
     enemyPoison = False
-    playAgain = int(raw_input("Try another battle? Type 1 for yes, or any other number to quit.  "))
 
 #This states the actions to follow for a lost battle (conditions in battle def.)
 
@@ -330,11 +329,10 @@ def Defeat():
     global enemyType
     global poison
     global enemyPoison
-    global playAgain
     global Treasure
     global Area
     ReturnStats()
-    print "You were defeated by", enemyName, "!"
+    print playername, "was defeated by", enemyName, "!"
     Area = 0
     Treasure = 0
     battle = False
@@ -342,16 +340,13 @@ def Defeat():
     enemyType = 0
     poison = False
     enemyPoison = False
-    playAgain = int(raw_input("Try another battle? Type 1 for yes, or any other number to quit.  "))
 
-#Beginning of main program, need to integrate the above actions into below game still
-#Start working here.
-#Or else.
-#I'm watching me.
-#Integrate Class choice and make temp and original variables work.
+#Beginning of main program here
 
 while playAgain == 1:
     print "Welcome!"
+    while playerName == "":
+        playerName = raw_input("What is your name?  ")
     while filler == 0:
         print "What class do you want to play?"
         print "Type 1 for Knight."
