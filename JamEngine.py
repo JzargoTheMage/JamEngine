@@ -412,12 +412,17 @@ while playAgain == 1:
             ShopMenu = 0
     while Area == 2:
         while Adventure == 0:
-            enemyType = 1
+            EasyFiller()
             battle = True
-            Battle()
-            if battleStatus == "Victory"
+            while battle = True
+                Battle()
+            if battleStatus == "Victory":
                 print "Filler story text"
                 ReturnStats()
                 battleStatus = "None"
                 Area = 0
-                
+            if battleStatus == "Defeat":
+                print "Filler loss text"
+                ReturnStats()
+                battleStatus = "None"
+                Area = 0
