@@ -1,4 +1,7 @@
 JamEngine Game Files
 ========================
 
-This is my game engine, and it is not for public use. Only use if you ask for permission AND give credit afterwards.
+THIS PROJECT IS OPEN SOURCE
+BUILT WITH PYTHON 2.7.8
+
+CONTRIBUTORS WELCOME
