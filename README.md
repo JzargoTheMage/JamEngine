@@ -2,6 +2,7 @@ JamEngine Game Files
 ========================
 
 THIS PROJECT IS OPEN SOURCE
+
 BUILT WITH PYTHON 2.7.8
 
 CONTRIBUTORS WELCOME
