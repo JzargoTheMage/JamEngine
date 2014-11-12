@@ -5,7 +5,7 @@ Current Version - 1.3
 
 ------------------------
 
-Ver. 1.0
+Ver. 1.0.0
 
 *Created changelog
 
@@ -13,13 +13,13 @@ Ver. 1.0
 
 ----------
 
-Ver. 1.1
+Ver. 1.0.5
 
-*Added player naming options
+*Added player naming options and other minor features
 
 -----------
 
-Ver. 1.2
+Ver. 1.1.0
 
 *Updated to allow for "cutscenes" of a sort
 
@@ -27,7 +27,7 @@ Ver. 1.2
 
 -----------
 
-Ver. 1.3
+Ver. 1.1.5
 
 *Updated to remove more nonsense code
 
