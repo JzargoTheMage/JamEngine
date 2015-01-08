@@ -45,6 +45,7 @@ Adventure = 0
 firstTime = True
 enemyNumber = 0
 search = 0
+story = True
 
 #Defined actions are below
 
@@ -100,6 +101,7 @@ def Metagame():
     global battleStatus
     global Area
     global enemyNumber
+    global battle
     print "You wish to fight the", enemyName, "? So be it!"
     print "-------------------------------------"
     battle = True
@@ -170,7 +172,7 @@ def PoisonAttacking():
     global enemyHealth
     global damage
     global Attack
-    global OriginalAttack
+    global TempAttack
     global enemyPoison
     PoisonOwnedCheck()
     TempAttack = Attack
@@ -189,7 +191,7 @@ def EnemyPoisonAttacking():
     global Health
     global damage
     global enemyAttack
-    global OriginalAttack
+    global TempAttack
     global poison
     TempAttack = enemyAttack
     enemyAttack /= 2
@@ -247,15 +249,23 @@ def EnemyAttacking():
 
 def Defending():
     global Defense
-    global Health
-    global damage
+    global TempHealth
+    global TempDefense
     TempDefense = Defense
     Defense = Defense * 2
+    TempHealth = Health * 1.15
     print playerName, "is guarding!"
 
 def ReturnDefense():
+    global Defense
+    global Health
+    global TempHealth
+    global TempDefense
     Defense = TempDefense
     TempDefense = 0
+    print playerName, "regained", TempHealth - Health, "points of Health!"
+    Health = TempHealth
+    TempHealth = 0
 
 #This ensures that the user does not gain Health from being attacked
     
@@ -281,8 +291,8 @@ def Knight():
     global Attack
     global Defense
     global Speed
-    Health = 10
-    Attack = 10
+    Health = 15
+    Attack = 5
     Defense = 15
     Speed = 5
     
@@ -301,9 +311,9 @@ def Berserker():
     global Attack
     global Defense
     global Speed
-    Health = 15
+    Health = 5
     Attack = 15
-    Defense = 5
+    Defense = 15
     Speed = 5
 
 def OP():
@@ -351,7 +361,6 @@ def MediumFiller():
     
 def Victory():
     global battle
-    global playerType
     global enemyType
     global poison
     global enemyPoison
@@ -362,7 +371,6 @@ def Victory():
     Coins += Treasure
     Treasure = 0
     battle = False
-    playerType = 0
     enemyType = 0
     poison = False
     enemyPoison = False
@@ -371,7 +379,6 @@ def Victory():
 
 def Defeat():
     global battle
-    global playerType
     global enemyType
     global poison
     global enemyPoison
@@ -379,7 +386,6 @@ def Defeat():
     print playername, "was defeated by", enemyName, "!"
     Treasure = 0
     battle = False
-    playerType = 0
     enemyType = 0
     poison = False
     enemyPoison = False
@@ -387,7 +393,10 @@ def Defeat():
 #Beginning of main program here
 
 while playAgain == 1:
-    print "Welcome!"
+    while story == True:
+        print "Welcome!"
+        print "-------------------------------------"
+        story = False
     while playerName == "":
         playerName = raw_input("What is your name?  ")
     while playerType == 0:
@@ -399,15 +408,19 @@ while playAgain == 1:
         playerType = int(raw_input("Well? What are you?  "))
         if playerType == 1:
             print "You chose the Knight class!"
+            print "-------------------------------------"
             Knight()
         elif playerType == 2:
             print "You chose the Warrior class!"
+            print "-------------------------------------"
             Warrior()
         elif playerType == 3:
             print "You chose the Thief class!"
+            print "-------------------------------------"
             Thief()
         elif playerType == 4:
             print "You chose the Berserker class!"
+            print "-------------------------------------"
             Berserker()
         elif playerType == 42:
             print "Cheater."
@@ -425,56 +438,66 @@ while playAgain == 1:
     elif Area == 1:
         filler = True
             if ShopMenu == 0:
+                print "-------------------------------------"
                 print "Welcome to the shop! What would you like? Upgrades are 5 coins, and poison is 10."
+                print "You have", Coins, "coins."
                 ShopMenu = int(raw_input("1 is Health, 2 is Attack, 3 is Defense, 4 is Speed, and 5 is poison. Enter 6 to return to town square.  "))
             
             elif ShopMenu == 1:
-                Coins -= 5
-                Health += 5
                 if Coins < 0:
                     print "You don't have enough money!"
-                    Coins += 5
-                    Health -= 5
+                else:
+                    Coins -= 5
+                    Health += 5
+                    print "You bought a Health upgrade!"
+                    print "You now have", Health, "points of Health!"
                 ShopMenu = 0
             
-                elif ShopMenu == 2:
-                Attack += 5
-                Coins -= 5
+            elif ShopMenu == 2:
+                
                 if Coins < 0:
                     print "You don't have enough money!"
-                    Coins += 5
-                    Attack -= 5
+                else:
+                    Attack += 5
+                    Coins -= 5
+                    print "You bought an Attack upgrade!"
+                    print "You now have", Attack, "points of Attack!"
                 ShopMenu = 0
             
             elif ShopMenu == 3:
-                Defense += 5
-                Coins -= 5
                 if Coins < 0:
                     print "You don't have enough money!"
-                    Coins += 5
-                    Defense -= 5
+                else:
+                    Defense += 5
+                    Coins -= 5
+                    print "You bought a Defense upgrade!"
+                    print "You now have", Defense, "points of Defense!"
                 ShopMenu = 0
             
             elif ShopMenu == 4:
-                Speed += 5
-                Coins -= 5
+
                 if Coins < 0:
                     print "You don't have enough money!"
-                    Coins += 5
-                    Speed -= 5
+                else:
+                    Speed += 5
+                    Coins -= 5
+                    print "You bought a Speed upgrade!"
+                    print "You now have", Speed, "points of Speed!"
                 ShopMenu = 0
             
             elif ShopMenu == 5:
-                poisonOwned += 1
-                Coins -= 10
                 if Coins < 0:
                     print "You don't have enough money!"
-                    Coins += 10
-                    poisonOwned -= 1
+                else:
+                    poisonOwned += 1
+                    Coins -= 10
+                    print "You bought a vial of poison!"
+                    print "You now have", poisonOwned, "vial(s) of poison!"
                 ShopMenu = 0
                 
             elif ShopMenu == 6:
                 print "Come again!"
+                print "-------------------------------------"
                 Area = 0
                 ShopMenu = 0
                 filler = False
@@ -485,63 +508,87 @@ while playAgain == 1:
             
     elif Area == 2:
         filler = True
+        while filler = True
             while Adventure == 0:
+                print "-------------------------------------"
                 print "Filler story text"
+                print "-------------------------------------"
                 EasyFiller()
                 battle = True
-                while battle = True
-                    Battle()
+                Battle()
                 if battleStatus == "Victory":
+                    print "-------------------------------------"
                     print "Filler story text"
+                    print "-------------------------------------"
                     ReturnStats()
                     battleStatus = "None"
                     Adventure += 1
                     Area = 0
                     filler = False
                 if battleStatus == "Defeat":
+                    print "-------------------------------------"
                     print "Filler loss text"
+                    print "-------------------------------------"
                     ReturnStats()
                     battleStatus = "None"
                     Area = 0
                     filler = False
-            if Adventure > 0:
+            else:
                 print "You encounter a strange old man."
                 print "'Hello...?' you say."
                 print "'TIME WARP!' he responds, and a magical vortex appears beneath you."
                 print "'DAFUQ DUDE!' you scream as you fall into the abyss."
+                print "-------------------------------------"
+                print "You awake on a park bench in your hometown."
+                print "'Whaaat...?' you say, the inconsistency clouding your mind."
+                print "Determined to find out what just happened and how you arrived back here, you set off on your journey."
+                print "-------------------------------------"
                 Area = 0
                 Adventure = 0
                 filler = False
 
     elif Area == 3:
-        print "Welcome to the metagame!"
-        if firstTime == True:
-            print "Wait..."
-            print "...What?"
-            print "Here, you can enter an enemy's unique ID number to fight them again. Interesting, right?"
+        filler = True
+        while filler == True:
+            print "-------------------------------------"
+            print "Welcome to the metagame!"
+            if firstTime == True:
+                print "Wait..."
+                print "...What?"
+                print "Here, you can enter an enemy's unique ID number to fight them again. Interesting, right?"
+                print "You even get to keep the money!"
+                firstTime = False
             
-        if enemyNumber == 0:
-            enemyNumber = int(raw_input("What would you like to fight today? Input the unique ID number here.  "))
-
-        if enemyNumber == 1:
-            print "Come again!"
-            enemyNumber = 0
-            Area = 0
-
-        elif enemyNumber == 565:
-            EasyFiller()
-            Metagame()
+            if enemyNumber == 0:
+                enemyNumber = int(raw_input("What would you like to fight today? Input the unique ID number here, or 1 to return to town.  "))
             
-        else:
-            print "I'm sorry, I didn't catch that. Come again?"
-            enemyNumber = 0
-        
+            if enemyNumber == 1:
+                print "Come again!"
+                print "-------------------------------------"
+                enemyNumber = 0
+                Area = 0
+                filler = False
+            elif enemyNumber == 565:
+                EasyFiller()
+                Metagame()
+                Area = 0
+                filler = False
+            elif enemyNumber == 324:
+                MediumFiller()
+                Metagame()
+                Area = 0
+                filler = False
+            else:
+                print "I'm sorry, I didn't catch that. Come again?"
+                enemyNumber = 0
+            
     elif Area == 4:
         print "-------------------------------------"
         print "Health:", Health
         print "Attack:", Attack
         print "Defense:", Defense
         print "Speed:", Speed
+        print "Coins:", Coins
         print "Poison Owned:", poisonOwned
         print "-------------------------------------"
         Area = 0
@@ -549,3 +596,4 @@ while playAgain == 1:
     else:
         print "Where the heck are you pointing? Let's try this again."
         Area = 0
+
